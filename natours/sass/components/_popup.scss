@@ -7,6 +7,10 @@
     height: 100vh;
     z-index: 2000;
 
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s;
+
     &__content {
         width: 75%;
         background-color: $color-white;
@@ -15,6 +19,10 @@
         border-radius: 3px;
         display: table;
         overflow: hidden;
+        transition: all 0.5s 0.2s;
+
+        //we have to prevent translate, because it is in @center-hv, and there can't be multople transforms on the element
+        transform: translate(-50%, -50%) scale(0);
     }
 
     &__left {
@@ -43,5 +51,32 @@
         -ms-hyphens: auto;
         -webkit-hyphens: auto;
         hyphens: auto;
+    }
+
+    // opening the popup
+    &:target {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    &:target &__content {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    &__close {
+        &:link,
+        &:visited {
+            color: $color-grey-dark;
+            position: absolute;
+            top: 0.5rem;
+            right: 2.5rem;
+            font-size: 4rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+        &:hover {
+            color: $color-primary;
+        }
     }
 }
